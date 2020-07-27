@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/TODOITEM1"
+            android:icon="@drawable/ic_baseline_bug_report_24"
+            android:title="没想好"
+            />
+
+        <item
+            android:id="@+id/TODOITEM2"
+            android:icon="@drawable/ic_baseline_bug_report_24"
+            android:title="没思路"
+            />
+
+        <item
+            android:id="@+id/TODOITEM3"
+            android:icon="@drawable/ic_baseline_bug_report_24"
+            android:title="没脑子"
+            />
+
+    </group>
+</menu>
