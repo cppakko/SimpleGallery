@@ -1,5 +1,7 @@
 package xyz.akko.simplegallery
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -8,27 +10,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Registry
+import com.bumptech.glide.module.AppGlideModule
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import xyz.akko.simplegallery.logic.model.imgAdapter
+import xyz.akko.simplegallery.logic.model.ImgAdapter
 import xyz.akko.simplegallery.logic.network.SGnetwork
-import xyz.akko.simplegallery.logic.repository
 import xyz.akko.simplegallery.ui.homePage.homePageViewModel
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity()
 {
 
-    val viewModel by lazy {
+    private val viewModel by lazy {
         ViewModelProvider(this)[homePageViewModel::class.java]  //https://blog.csdn.net/keysking/article/details/104347348
     }
 
-    private lateinit var adapter: imgAdapter
+    private lateinit var adapter: ImgAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,22 +42,34 @@ class MainActivity : AppCompatActivity()
 
         val layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = layoutManager
-        adapter = imgAdapter(viewModel.initList) //NULL警告
+        adapter = ImgAdapter(viewModel.initList)
         recyclerView.adapter = adapter
 
+        refreshLayout.run {
+            setOnRefreshListener(){
+                GlobalScope.launch {
+                    viewModel.previousPage()
+                }
+            }
+            setOnLoadMoreListener(){
+                GlobalScope.launch {
+                    Log.d("get","debug")
+                    viewModel.nextPage()
+                }
+            }
+        }
+
         viewModel.imgLiveData.observe(this, Observer {
-            Log.d("get","i get")
+            viewModel.initList.clear()
             viewModel.initList.addAll(it)
             adapter.notifyDataSetChanged()
+            refreshLayout.finishLoadMore()
+            refreshLayout.finishRefresh()
         })
-    }
 
-    override fun onResume() {
-        super.onResume()
-        GlobalScope.launch {
-            val temp = SGnetwork().pageGet(1)
-            viewModel.imgLiveData.postValue(temp)
-        }
+        viewModel.currentPage.observe(this, Observer {
+            viewModel.reloadPage(viewModel.currentPage.value!!)
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -71,5 +83,12 @@ class MainActivity : AppCompatActivity()
             android.R.id.home -> drawerLayout.openDrawer(GravityCompat.START)
         }
         return true
+    }
+}
+
+class GlideModule: AppGlideModule()
+{
+    override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
+        super.registerComponents(context, glide, registry)
     }
 }

@@ -1,17 +1,21 @@
 package xyz.akko.simplegallery.logic.model
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
+import kotlinx.android.synthetic.main.img_item.view.*
 import xyz.akko.simplegallery.R
-import xyz.akko.simplegallery.simpleGalleryAPP.Companion.context
-import xyz.akko.simplegallery.ui.homePage.homePageViewModel
+import xyz.akko.simplegallery.SGGlobalContext
+import xyz.akko.simplegallery.SGGlobalContext.Companion.context
+import xyz.akko.simplegallery.imgDetailPage
 
-class imgAdapter(val imgList: ArrayList<img_informationItem>): RecyclerView.Adapter<imgAdapter.ViewHolder>()
+class ImgAdapter(private val imgList: ArrayList<img_info>): RecyclerView.Adapter<ImgAdapter.ViewHolder>()
 {
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val img: ImageView = view.findViewById(R.id.imgViewRE)
@@ -20,7 +24,20 @@ class imgAdapter(val imgList: ArrayList<img_informationItem>): RecyclerView.Adap
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.img_item, parent, false)
-        return ViewHolder(view)
+
+        val viewHolder = ViewHolder(view)
+        view.imgViewRE.setOnClickListener(){
+            val position = viewHolder.adapterPosition
+            val l = imgList[position]
+            Log.d("get", imgList[position].tags)
+            val intent = Intent(SGGlobalContext.context, imgDetailPage::class.java).apply {
+                putExtra("imgData",imgList[position])
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(SGGlobalContext.context,this,null)
+            }
+        }
+
+        return viewHolder
     }
 
     override fun getItemCount() = imgList.size
@@ -31,7 +48,6 @@ class imgAdapter(val imgList: ArrayList<img_informationItem>): RecyclerView.Adap
             .load(imgItem.preview_url)
             .override(imgItem.sample_width,imgItem.sample_height)
             .placeholder(R.drawable.ic_baseline_refresh_24)
-            .dontAnimate()
             .into(holder.img)
     }
 }

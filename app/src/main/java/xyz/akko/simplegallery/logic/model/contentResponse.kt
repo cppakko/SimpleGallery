@@ -1,8 +1,8 @@
 package xyz.akko.simplegallery.logic.model
 
-class img_information : ArrayList<img_informationItem>()
+import java.io.Serializable
 
-data class img_informationItem(
+data class img_info(
     val actual_preview_height: Int,
     val actual_preview_width: Int,
     val approver_id: Any,
@@ -47,4 +47,4 @@ data class img_informationItem(
     val tags: String,
     val updated_at: Int,
     val width: Int
-)
+): Serializable
