@@ -1,7 +1,6 @@
 package xyz.akko.simplegallery
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -17,8 +16,7 @@ import com.bumptech.glide.module.AppGlideModule
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import xyz.akko.simplegallery.logic.model.ImgAdapter
-import xyz.akko.simplegallery.logic.network.SGnetwork
+import xyz.akko.simplegallery.logic.model.imgAdapter
 import xyz.akko.simplegallery.ui.homePage.homePageViewModel
 
 class MainActivity : AppCompatActivity()
@@ -28,7 +26,7 @@ class MainActivity : AppCompatActivity()
         ViewModelProvider(this)[homePageViewModel::class.java]  //https://blog.csdn.net/keysking/article/details/104347348
     }
 
-    private lateinit var adapter: ImgAdapter
+    private lateinit var adapter: imgAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity()
 
         val layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = layoutManager
-        adapter = ImgAdapter(viewModel.initList)
+        adapter = imgAdapter(viewModel.initList)
         recyclerView.adapter = adapter
 
         refreshLayout.run {

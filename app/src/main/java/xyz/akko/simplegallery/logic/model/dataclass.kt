@@ -1,5 +1,10 @@
 package xyz.akko.simplegallery.logic.model
 
+import android.graphics.Rect
+import android.os.Parcel
+import android.os.Parcelable
+import com.previewlibrary.enitity.IThumbViewInfo
+import org.jetbrains.annotations.Nullable
 import java.io.Serializable
 
 data class img_info(
@@ -47,4 +52,4 @@ data class img_info(
     val tags: String,
     val updated_at: Int,
     val width: Int
-): Serializable
+):Serializable

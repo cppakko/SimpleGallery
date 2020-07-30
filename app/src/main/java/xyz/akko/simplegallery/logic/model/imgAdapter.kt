@@ -13,9 +13,9 @@ import kotlinx.android.synthetic.main.img_item.view.*
 import xyz.akko.simplegallery.R
 import xyz.akko.simplegallery.SGGlobalContext
 import xyz.akko.simplegallery.SGGlobalContext.Companion.context
-import xyz.akko.simplegallery.imgDetailPage
+import xyz.akko.simplegallery.ImgDetailPage
 
-class ImgAdapter(private val imgList: ArrayList<img_info>): RecyclerView.Adapter<ImgAdapter.ViewHolder>()
+class imgAdapter(private val imgList: ArrayList<img_info>): RecyclerView.Adapter<imgAdapter.ViewHolder>()
 {
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val img: ImageView = view.findViewById(R.id.imgViewRE)
@@ -30,7 +30,7 @@ class ImgAdapter(private val imgList: ArrayList<img_info>): RecyclerView.Adapter
             val position = viewHolder.adapterPosition
             val l = imgList[position]
             Log.d("get", imgList[position].tags)
-            val intent = Intent(SGGlobalContext.context, imgDetailPage::class.java).apply {
+            val intent = Intent(SGGlobalContext.context, ImgDetailPage::class.java).apply {
                 putExtra("imgData",imgList[position])
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(SGGlobalContext.context,this,null)
