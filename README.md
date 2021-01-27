@@ -1,1 +1,1 @@
-# SimpleGallery
+# Yandroid

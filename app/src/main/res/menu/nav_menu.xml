@@ -3,21 +3,15 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/TODOITEM1"
-            android:icon="@drawable/ic_baseline_bug_report_24"
-            android:title="没想好"
+            android:id="@+id/nav_menu_setting"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="设置"
             />
 
         <item
-            android:id="@+id/TODOITEM2"
+            android:id="@+id/nav_menu_about"
             android:icon="@drawable/ic_baseline_bug_report_24"
-            android:title="没思路"
-            />
-
-        <item
-            android:id="@+id/TODOITEM3"
-            android:icon="@drawable/ic_baseline_bug_report_24"
-            android:title="没脑子"
+            android:title="关于"
             />
 
     </group>
