@@ -54,7 +54,7 @@ class ImgDetailActivity : AppCompatActivity() {
         author_tag.addTags(arrayOf(data.author))
         tags_tag.addTags(t)
 
-        imgSimpleView.setOnClickListener(){
+        imgSimpleView.setOnClickListener {
             val stringList = listOf(ZoomViewInfo(data.sample_url))
             GPreviewBuilder.from(this)
                 .setData(stringList)
@@ -65,7 +65,7 @@ class ImgDetailActivity : AppCompatActivity() {
                 .start()
         }
 
-        downloadButton.setOnClickListener(){
+        downloadButton.setOnClickListener {
             val WRSPermissionStr = "android.permission.WRITE_EXTERNAL_STORAGE"
             if (this.checkSelfPermission(WRSPermissionStr) == PackageManager.PERMISSION_DENIED)
             {

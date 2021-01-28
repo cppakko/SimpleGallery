@@ -37,7 +37,7 @@ class DetailPageImageLoader : IZoomMediaLoader {
             {
                 override fun onLoadCleared(placeholder: Drawable?) {}
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    imageView.setImageBitmap(resource);
+                    imageView.setImageBitmap(resource)
                     simpleTarget.onResourceReady()
                 }
             }

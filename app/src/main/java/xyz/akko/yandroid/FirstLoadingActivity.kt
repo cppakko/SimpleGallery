@@ -24,7 +24,7 @@ class FirstLoadingActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val client = OkHttpClient().newBuilder().connectTimeout(5, TimeUnit.SECONDS).build()
-        val request = Request.Builder().url("https://yande.re/").build();
+        val request = Request.Builder().url("https://yande.re/").build()
         client.newCall(request).enqueue(object: Callback{
             override fun onFailure(call: Call, e: IOException) {
                 showDialog()

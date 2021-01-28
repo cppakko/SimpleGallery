@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import com.previewlibrary.enitity.IThumbViewInfo;
 
 public class ZoomViewInfo implements IThumbViewInfo {
-    private String url;
+    private final String url;
     private Rect mBounds;
     private String videoUrl;
 

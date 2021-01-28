@@ -28,7 +28,7 @@ class ImgAdapter(private val imgList: ArrayList<YanderImgInfo>): RecyclerView.Ad
             .inflate(R.layout.img_item, parent, false)
 
         val viewHolder = ViewHolder(view)
-        view.imgViewRE.setOnClickListener(){
+        view.imgViewRE.setOnClickListener {
             val position = viewHolder.adapterPosition
             //Log.d("get", imgList[position].tags)
             Intent(context, ImgDetailActivity::class.java).apply {
