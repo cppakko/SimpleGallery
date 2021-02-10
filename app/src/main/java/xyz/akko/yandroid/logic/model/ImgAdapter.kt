@@ -48,7 +48,7 @@ class ImgAdapter(private val imgList: ArrayList<YanderImgInfo>): RecyclerView.Ad
         val imgItem = imgList[position]
         val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
         Glide.with(context)
-            .load(imgItem.preview_url)
+            .load(imgItem.sample_url)
             .placeholder(R.drawable.logo)
             .transition(DrawableTransitionOptions.withCrossFade(factory))
             .override(imgItem.sample_width,imgItem.sample_height)

@@ -1,14 +1,15 @@
 package xyz.akko.yandroid.ui.homePage
 
-import android.util.Log
+import android.os.Looper
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import xyz.akko.yandroid.logic.network.SearchPageService
 import xyz.akko.yandroid.logic.network.YanderRenetwork
+import xyz.akko.yandroid.util.Utils
 import xyz.akko.yandroid.util.bean.YanderImgInfo
 
 class SearchPageViewModel: ViewModel()
@@ -17,14 +18,8 @@ class SearchPageViewModel: ViewModel()
     val initList = ArrayList<YanderImgInfo>()
     fun search(tags: String)
     {
-        GlobalScope.launch {
-            //val temp = YanderRenetwork().searchResultGet(tags)
-            val retrofit = Retrofit.Builder().baseUrl("https://yande.re/").addConverterFactory(
-                GsonConverterFactory.create()).build()
-            Log.d("get",retrofit.create(SearchPageService::class.java).resultGet(tags).request().url().toString())
-
-            val temp = retrofit.create(SearchPageService::class.java).resultGet(tags).execute().body()!!
-            Log.d("get",temp.toString())
+        CoroutineScope(Dispatchers.IO + Job()).launch{
+            val temp = YanderRenetwork().searchResultGet(tags)
             imgLiveData.postValue(temp)
         }
     }

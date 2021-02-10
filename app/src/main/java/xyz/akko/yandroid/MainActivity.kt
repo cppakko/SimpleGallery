@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,8 +20,7 @@ import xyz.akko.yandroid.util.MyActivityManager
 import xyz.akko.yandroid.util.Utils
 
 
-class MainActivity : AppCompatActivity()
-{
+class MainActivity : AppCompatActivity() {
 
     private val viewModel by lazy {
         ViewModelProvider(this)[HomePageViewModel::class.java]  //https://blog.csdn.net/keysking/article/details/104347348
@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity()
         recyclerView.layoutManager = layoutManager
         adapter = ImgAdapter(viewModel.initList)
         recyclerView.adapter = adapter
+
+        refreshLayout.setEnableAutoLoadMore(false);
 
         //TODO 更换GlobalScope
         refreshLayout.run {
