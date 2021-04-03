@@ -1,4 +1,6 @@
 # Yandroid
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fcppakko%2FYandroid.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fcppakko%2FYandroid?ref=badge_shield)
+
 
 ## 事[yande.re](yande.re)的第三方图片浏览器📕
 
@@ -20,3 +22,7 @@
 * 收藏页面
 
 ***
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fcppakko%2FYandroid.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fcppakko%2FYandroid?ref=badge_large)
